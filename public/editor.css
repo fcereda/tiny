@@ -4,6 +4,11 @@
   --sans-font: 'Source Sans Pro', 'Fira Sans', 'Roboto', 'Inter', 'Segoe UI', sans-serif;
 }  
 
+span {
+  color: black !important;   
+  /* Isto é para corrigir um bug do editor que mantém o estilo color quando colamos um texto colorido */
+}
+
 /* Estilos de lista */
 
 ol {

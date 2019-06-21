@@ -40,7 +40,7 @@ class App extends React.Component {
       <Editor
         initialValue='<p class="num"> </p>'
         init={{
-          plugins: 'link code advlist textpattern link lists quickbars table nonbreaking searchreplace spellchecker charmap',
+          plugins: 'link code lists advlist textpattern link quickbars table nonbreaking paste searchreplace spellchecker charmap',
           content_css: [
             'https://fonts.googleapis.com/css?family=Source+Serif+Pro&display=swap',
             'https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,500,500i,600,600i&display=swap',
@@ -65,6 +65,15 @@ class App extends React.Component {
           nonbreaking_force_tab: true,
           advlist_number_styles: 'decimal,lower-alpha,lower-roman,upper-alpha',
           spellchecker_language: 'pt_BR',
+          entities: 'euro',
+
+          paste_merge_formats: true,
+          paste_retain_style_properties: '',
+          paste_word_valid_elements: 'b,strong,i,em,h1,h2',
+          valid_styles: {
+            '*': 'border,font-size',
+            'div': 'width,height'
+          },
 
           textpattern_patterns: [
             {start: '--', replacement: '—'},

@@ -3,7 +3,7 @@ import { Editor } from '@tinymce/tinymce-react';
 
 class App extends React.Component {
   handleEditorChange = (e) => {
-    console.log('Content was updated:', e.target.getContent());
+    //console.log('Content was updated:', e.target.getContent());
   }
 
   render() {
@@ -43,7 +43,7 @@ class App extends React.Component {
           plugins: 'link code advlist textpattern link lists quickbars table nonbreaking searchreplace spellchecker charmap',
           content_css: [
             'https://fonts.googleapis.com/css?family=Source+Serif+Pro&display=swap',
-            'https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,600,600i&display=swap',
+            'https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,500,500i,600,600i&display=swap',
             '/editor.css'
           ],
           content_style: "body {font-family: 'Source Serif Pro', serif; font-size:18px; padding-left: calc(50% - 35ch); padding-right: calc(50% - 35ch);}",          

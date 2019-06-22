@@ -42,13 +42,14 @@ class App extends React.Component {
         init={{
           plugins: 'link code lists advlist textpattern link quickbars table nonbreaking paste searchreplace spellchecker charmap',
           content_css: [
-            'https://fonts.googleapis.com/css?family=Source+Serif+Pro&display=swap',
-            'https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,500,500i,600,600i&display=swap',
+            'https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,400i,600i&display=swap',
+            'https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,500,500i|Nunito+Sans:400,400i,600,600i,700,700i&display=swap',
+            'https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap',
             '/editor.css'
           ],
           content_style: "body {font-family: 'Source Serif Pro', serif; font-size:18px; padding-left: calc(50% - 35ch); padding-right: calc(50% - 35ch);}",          
 
-          block_formats: 'Parágrafo=p; Par. numerado=pn; Título 1=h1; Título 2=h2; Título 3=h3',
+          block_formats: 'Parágrafo=p; Par. numerado=pn; Monospace=code; Título 1=h1; Título 2=h2; Título 3=h3',
           font_formats: 'Arial=arial,helvetica,sans-serif; Courier New=courier new,monospace; Source Serif=Source Serif Pro',
           fontsize_formats: '11px 12px 14px 15px 16px 17px 18px 24px 36px 48px',
           formats: formats,
@@ -70,8 +71,10 @@ class App extends React.Component {
           paste_merge_formats: true,
           paste_retain_style_properties: '',
           paste_word_valid_elements: 'b,strong,i,em,h1,h2',
+          invalid_elements: 'pre',
+          valid_classes: 'num left center right',
           valid_styles: {
-            '*': 'border,font-size',
+            'table':   'width',
             'div': 'width,height'
           },
 

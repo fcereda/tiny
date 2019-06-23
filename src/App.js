@@ -40,7 +40,7 @@ class App extends React.Component {
       <Editor
         initialValue='<p class="num"> </p>'
         init={{
-          plugins: 'link code lists advlist textpattern link quickbars table nonbreaking paste searchreplace spellchecker charmap',
+          plugins: 'link code lists advlist textpattern link table nonbreaking paste searchreplace spellchecker charmap',
           content_css: [
             'https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,400i,600i&display=swap',
             'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i|Fira+Sans:400,400i,500,500i|Nunito+Sans:400,400i,600,600i,700,700i&display=swap',
@@ -59,8 +59,6 @@ class App extends React.Component {
           indentation : '2em',
           
           toolbar: 'formatselect | paste cut copy | undo redo | searchreplace | bold italic | numlist bullist | blockquote outdent indent | charmap table | code',
-          quickbars_insert_toolbar: false,
-          quickbars_selection_toolbar: 'bold italic | link | alignleft aligncenter alignright ',
           menubar: false,
 
           nonbreaking_force_tab: true,
@@ -85,6 +83,7 @@ class App extends React.Component {
           table_advtab: false,
           table_cell_advtab: false,
           table_row_advtab: false,
+          table_toolbar: "tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol | alignleft aligncenter alignright",
 
           textpattern_patterns: [
             {start: '--', replacement: '—'},

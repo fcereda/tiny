@@ -114,20 +114,19 @@ h3 + p {
 table {
   min-width: 75%; 
   margin: 0 auto; /* Centraliza a tabela */
-}
-
-td  {
   font-family: var(--sans-font);
+  font-size: calc(var(--font-size) - 1px);  
 }
 
 table > caption {
-  font-family: var(--sans-font);
   font-weight: 500;
   margin-bottom: 0.25em;
 }
 
 table > caption > strong,
-table > caption > b {
+table > caption > b,
+table > caption > p > strong,
+table > caption > p > b {
   font-weight: 400;
 }
 
@@ -136,6 +135,13 @@ table > thead > tr > td,
 table > tbody > tr > th,
 table > tfoot > tr > td {
   font-weight: 500;
+}
+
+table > thead > tr > th > strong,
+table > thead > tr > td > strong,
+table > tbody > tr > th > strong,
+table > tfoot > tr > td > strong {
+  font-weight: 400;
 }
 
 table > thead > tr:last-of-type > th,

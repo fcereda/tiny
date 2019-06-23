@@ -43,7 +43,7 @@ class App extends React.Component {
           plugins: 'link code lists advlist textpattern link quickbars table nonbreaking paste searchreplace spellchecker charmap',
           content_css: [
             'https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,400i,600i&display=swap',
-            'https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,500,500i|Nunito+Sans:400,400i,600,600i,700,700i&display=swap',
+            'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i|Fira+Sans:400,400i,500,500i|Nunito+Sans:400,400i,600,600i,700,700i&display=swap',
             'https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap',
             '/editor.css'
           ],
@@ -74,9 +74,17 @@ class App extends React.Component {
           invalid_elements: 'pre',
           valid_classes: 'num left center right',
           valid_styles: {
-            'table':   'width',
+            'table':   'width, min-width',
+            'td': 'width',
             'div': 'width,height'
           },
+
+          table_default_styles: {
+          },
+          table_responsive_width: true,
+          table_advtab: false,
+          table_cell_advtab: false,
+          table_row_advtab: false,
 
           textpattern_patterns: [
             {start: '--', replacement: '—'},

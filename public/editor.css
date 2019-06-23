@@ -1,7 +1,7 @@
 /* Estilos gerais */
 
 :root {
-  --sans-font: 'Nunito Sans', 'Source Sans Pro', 'Fira Sans', 'Roboto', 'Inter', 'Segoe UI', sans-serif;
+  --sans-font: 'Roboto', 'Nunito Sans', 'Source Sans Pro', 'Fira Sans', 'Roboto', 'Inter', 'Segoe UI', sans-serif;
   --font-size: 18px;
 }  
 
@@ -111,6 +111,11 @@ h3 + p {
 
 /* Estilos de tabela */
 
+table {
+  min-width: 75%; 
+  margin: 0 auto; /* Centraliza a tabela */
+}
+
 td  {
   font-family: var(--sans-font);
 }
@@ -121,14 +126,30 @@ table > caption {
   margin-bottom: 0.25em;
 }
 
-table > tbody > tr:first-child > td,
-table > thead > tr > th,
-table > tbody > tr > th {
-  border-bottom: 2px solid black;
-  font-weight: 700;
+table > caption > strong,
+table > caption > b {
+  font-weight: 400;
 }
 
-table > tbody > tr > td {
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tfoot > tr > td {
+  font-weight: 500;
+}
+
+table > thead > tr:last-of-type > th,
+table > thead > tr:last-of-type > td,
+table > tbody > tr > th {
+  border-bottom: 2px solid black;
+}
+
+table > tfoot > tr:first-of-type > td {
+  border-top: 2px solid black;
+}
+
+td, 
+th {
   border-left: 1px dotted gray;
   border-right: 1px dotted gray;
   padding: 0.2em;
@@ -137,18 +158,38 @@ table > tbody > tr > td {
   min-width: 1em;
 }
 
-td.center {
-  text-align: center;
+table > thead > tr > th:not(:first-of-type),
+table > thead > tr > td:not(:first-of-type),
+table > tbody > tr > th:not(:first-of-type),
+table > tbody > tr > td:not(:first-of-type),
+table > tfoot > tr > td:not(:first-of-type) {
+  padding-left: 0.5em;
 }
+
+table > thead > tr > th:not(:last-of-type),
+table > thead > tr > td:not(:last-of-type),
+table > tbody > tr > th:not(:last-of-type),
+table > tbody > tr > td:not(:last-of-type),
+table > tfoot > tr > td:not(:last-of-type) {
+  padding-right: 0.5em;
+}
+
 
 td:last-child,
 th:last-child,
+th.right,
 td.right {
   text-align: right;
 }
 
-td.left {
+td.left,
+th.left {
   text-align: left;
+}
+
+td.center,
+th.center {
+  text-align: center;
 }
 
 td > p {

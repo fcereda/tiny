@@ -9,31 +9,24 @@ class App extends React.Component {
   render() {
 
     const formats = {
-      pn: { block: 'p', classes: 'num', exact: true },
+      pn: { block: 'p', classes: 'num', remove: 'all', exact: true },
+      // O estilo abaixo é uma gambiarra para diferenciar o parágrafo normal do numerado. 
+      // Quando o editor gera o HTML, este formato aparece como <p></p>, sem classes
+      pc: { block: 'div', remove: 'all', exact: true},  
       h1: { block: 'h1', exact: true },
       h2: { block: 'h2', exact: true },
       h3: { block: 'h3', exact: true }, 
       alignleft: { selector: 'td', classes: 'left' },
       aligncenter: { selector: 'td', classes: 'center' },
       alignright: { selector: 'td', classes: 'right' },
-      removeformat: [{
-        selector: 'p', remove: 'all'
-      }]
     }
     const style_formats = [
-      { title: 'Numerado', format: 'pn' },
-      { title: 'À esquerda', format: 'alignleft' },
-      { title: 'Centralizado', format: 'aligncenter' },
-      { title: 'À direita', format: 'alignright'}
-    ]
-    const block_formats = [
-      { title: 'Parágrafo', format: 'p' },
+      { title: 'Normal', format: 'pc' },
       { title: 'Numerado', format: 'pn' },
       { title: 'Título 1', format: 'h1' },
       { title: 'Título 2', format: 'h2' },
       { title: 'Título 3', format: 'h3' }
     ]
-
 
     return (
       <div style={{display:'flex', flexDirection: 'column', height:'100%'}}>
@@ -45,22 +38,22 @@ class App extends React.Component {
             'https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,400i,600i&display=swap',
             'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i|Fira+Sans:400,400i,500,500i|Nunito+Sans:400,400i,600,600i,700,700i&display=swap',
             'https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap',
-            '/editor.css'
+            '/editor-content.css'
           ],
           content_style: "body {font-family: 'Source Serif Pro', serif; font-size:18px; padding-left: calc(50% - 35ch); padding-right: calc(50% - 35ch);}",
 
-          block_formats: 'Parágrafo=p; Par. numerado=pn; Título 1=h1; Título 2=h2; Título 3=h3',
+          block_formats: 'Normal=pc; Numerado=pn; Título 1=h1; Título 2=h2; Título 3=h3',
           font_formats: 'Arial=arial,helvetica,sans-serif; Courier New=courier new,monospace; Source Serif=Source Serif Pro',
           fontsize_formats: '11px 12px 14px 15px 16px 17px 18px 24px 36px 48px',
           formats: formats,
           style_formats: style_formats,
-          preview_styles: 'font-family font-weight',
+          preview_styles: 'font-family font-size font-weight',
           
-          valid_elements: 'a[href|target=_blank],strong/b,em/i,p[class],ol[style,class],ul[style,class],li[style,class],table[style,class],thead,tbody,tfoot,td[style,class],th[style,class],br',
+          valid_elements: 'a[href|target=_blank],strong/b,strong/u,em/i,del/strike,p[class],ol[style,class],ul[style,class],li[style,class],table[style,class],thead,tbody,tfoot,td[style,class],th[style,class],br',
 
           indentation : '2em',
           
-          toolbar: 'formatselect | paste cut copy | undo redo | searchreplace | bold italic | numlist bullist | blockquote outdent indent | charmap table | code',
+          toolbar: 'formatselect | paste cut copy | undo redo | searchreplace | bold italic strikethrough | numlist bullist | blockquote outdent indent | charmap table | code',
           menubar: false,
 
           nonbreaking_force_tab: true,

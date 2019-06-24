@@ -47,14 +47,16 @@ class App extends React.Component {
             'https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap',
             '/editor.css'
           ],
-          content_style: "body {font-family: 'Source Serif Pro', serif; font-size:18px; padding-left: calc(50% - 35ch); padding-right: calc(50% - 35ch);}",          
+          content_style: "body {font-family: 'Source Serif Pro', serif; font-size:18px; padding-left: calc(50% - 35ch); padding-right: calc(50% - 35ch);}",
 
-          block_formats: 'Parágrafo=p; Par. numerado=pn; Monospace=code; Título 1=h1; Título 2=h2; Título 3=h3',
+          block_formats: 'Parágrafo=p; Par. numerado=pn; Título 1=h1; Título 2=h2; Título 3=h3',
           font_formats: 'Arial=arial,helvetica,sans-serif; Courier New=courier new,monospace; Source Serif=Source Serif Pro',
           fontsize_formats: '11px 12px 14px 15px 16px 17px 18px 24px 36px 48px',
           formats: formats,
           style_formats: style_formats,
           preview_styles: 'font-family font-weight',
+          
+          valid_elements: 'a[href|target=_blank],strong/b,em/i,p[class],ol[style,class],ul[style,class],li[style,class],table[style,class],thead,tbody,tfoot,td[style,class],th[style,class],br',
 
           indentation : '2em',
           

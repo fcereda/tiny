@@ -10,15 +10,14 @@ class App extends React.Component {
 
     const formats = {
       pn: { block: 'p', classes: 'num', remove: 'all', exact: true },
-      // O estilo abaixo é uma gambiarra para diferenciar o parágrafo normal do numerado. 
-      // Quando o editor gera o HTML, este formato aparece como <p></p>, sem classes
-      pc: { block: 'div', remove: 'all', exact: true},  
+      pc: { block: 'p', remove: 'all', exact: true},  
       h1: { block: 'h1', exact: true },
       h2: { block: 'h2', exact: true },
       h3: { block: 'h3', exact: true }, 
       alignleft: { selector: 'td', classes: 'left' },
       aligncenter: { selector: 'td', classes: 'center' },
       alignright: { selector: 'td', classes: 'right' },
+      strikethrough: { inline: 'del', remove: 'all'}
     }
     const style_formats = [
       { title: 'Normal', format: 'pc' },
@@ -42,14 +41,18 @@ class App extends React.Component {
           ],
           content_style: "body {font-family: 'Source Serif Pro', serif; font-size:18px; padding-left: calc(50% - 35ch); padding-right: calc(50% - 35ch);}",
 
-          block_formats: 'Normal=pc; Numerado=pn; Título 1=h1; Título 2=h2; Título 3=h3',
+          block_formats: 'Numerado=pn; Normal=pc; Título 1=h1; Título 2=h2; Título 3=h3',
           font_formats: 'Arial=arial,helvetica,sans-serif; Courier New=courier new,monospace; Source Serif=Source Serif Pro',
           fontsize_formats: '11px 12px 14px 15px 16px 17px 18px 24px 36px 48px',
           formats: formats,
           style_formats: style_formats,
           preview_styles: 'font-family font-size font-weight',
           
-          valid_elements: 'a[href|target=_blank],strong/b,strong/u,em/i,del/strike,p[class],ol[style,class],ul[style,class],li[style,class],table[style,class],thead,tbody,tfoot,td[style,class],th[style,class],br',
+          valid_elements: 'a[href|target=_blank],br,strong/b,strong/u,em/i,del/strike,' + 
+            'blockquote,p[class],h1,h2,h3,h4,h5,h6,' + 
+            'p[class]/div[class],' +   // Converte elementos <div> para <p>  
+            'ol[style|class],ul[style|class],li[style|class],' + 
+            'table[style|border|width|height|align|cellspacing|cellpadding],thead,tbody,tfoot,tr[style],td[style|width|height],th[style|width|height]',
 
           indentation : '2em',
           
@@ -98,10 +101,16 @@ class App extends React.Component {
           ],
 
           contextmenu: "bold italic | link table spellchecker",
-
          
           min_height: 600,
           height: 700,
+
+          init_instance_callback: function (editor) {
+            editor.on('PreProcess', function (e) {
+              console.log(e.node);
+            });
+          },  
+
         }}
         onChange={this.handleEditorChange}
       />

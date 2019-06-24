@@ -52,7 +52,7 @@ class App extends React.Component {
             'blockquote,p[class],h1,h2,h3,h4,h5,h6,' + 
             'p[class]/div[class],' +   // Converte elementos <div> para <p>  
             'ol[style|class],ul[style|class],li[style|class],' + 
-            'table[style|border|width|height|align|cellspacing|cellpadding],thead,tbody,tfoot,tr[style],td[style|width|height],th[style|width|height]',
+            'table[style|border|width|height|align|cellspacing|cellpadding],thead,tbody,tfoot,tr[style],td[style|class|width|height],th[style|class|width|height]',
 
           indentation : '2em',
           

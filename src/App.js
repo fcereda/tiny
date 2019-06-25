@@ -113,7 +113,7 @@ class App extends React.Component {
 
           setup: function (editor) {
 
-            const ZOOMS = [0, 0.5, 0.65, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 2],
+            const ZOOMS = [0, 0.5, 0.65, 0.8, 0.9, 1, 1.05, 1.15, 1.25, 1.5, 2],
                 minZoom = ZOOMS[1],
                 maxZoom = ZOOMS[ZOOMS.length-1]
             let btnZoomIn,

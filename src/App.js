@@ -48,10 +48,10 @@ class App extends React.Component {
           style_formats: style_formats,
           preview_styles: 'font-family font-size font-weight',
           
-          valid_elements: 'a[href|target=_blank],br,strong/b,strong/u,em/i,del/strike,' + 
-            'blockquote,p[class],h1,h2,h3,h4,h5,h6,' + 
+          valid_elements: 'a[href|target=_blank],br,strong/b,u,em/i,del/strike,sub,sup,' + 
+            'blockquote,p[class|style],h1,h2,h3,h4,h5,h6,' + 
             'p[class]/div[class],' +   // Converte elementos <div> para <p>  
-            'ol[style|class],ul[style|class],li[style|class],' + 
+            'ol[style],ul[style],li[style],' + 
             'table[style|border|width|height|align|cellspacing|cellpadding],thead,tbody,tfoot,tr[style],td[style|class|width|height],th[style|class|width|height]',
 
           indentation : '2em',
@@ -66,13 +66,15 @@ class App extends React.Component {
 
           paste_merge_formats: true,
           paste_retain_style_properties: '',
-          paste_word_valid_elements: 'b,strong,i,em,h1,h2',
+          paste_word_valid_elements: 'b,strong,i,em,u,sub,sup,strike,h1,h2,h3,p,table,tbody,thead,tfoot,tr,td,th,div,ol,ul,li,br,del',
           invalid_elements: 'pre',
           valid_classes: 'num left center right',
           valid_styles: {
             'table':   'width, min-width',
             'td': 'width',
-            'div': 'width,height'
+            'div': 'width,height',
+            'ul': 'list-style-type',
+            'ol': 'list-style-type',
           },
 
           table_default_styles: {

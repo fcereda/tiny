@@ -62,6 +62,8 @@ class App extends React.Component {
 
           nonbreaking_force_tab: true,
           advlist_number_styles: 'decimal,lower-alpha,lower-roman,upper-alpha',
+          language_url : '/tinymce/langs/pt_BR.js',
+          language: 'pt_BR',
           spellchecker_language: 'pt_BR',
           entities: 'euro',
 
@@ -158,7 +160,7 @@ class App extends React.Component {
 
             editor.ui.registry.addButton('zoomin', {
               icon: 'zoom-in',
-              tooltip: 'Aumentar tamanho da letra',
+              tooltip: 'Aumentar zoom',
               disabled: false,
               onSetup: btn => btnZoomIn = btn,
               onAction: btn => {
@@ -168,7 +170,7 @@ class App extends React.Component {
 
             editor.ui.registry.addButton('zoomout', {
               icon: 'zoom-out',
-              tooltip: 'Reduzir tamanho da letra',
+              tooltip: 'Reduzir zoom',
               disabled: false,
               onSetup: btn => btnZoomOut = btn,
               onAction: btn => {
@@ -177,12 +179,6 @@ class App extends React.Component {
             })
 
           },    
-
-          init_instance_callback: function (editor) {
-            editor.on('PreProcess', function (e) {
-              console.log(e.node);
-            });
-          },  
 
         }}
         onChange={this.handleEditorChange}

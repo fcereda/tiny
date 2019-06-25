@@ -32,7 +32,7 @@ class App extends React.Component {
       <Editor
         initialValue='<p class="num"> </p>'
         init={{
-          plugins: 'link code lists advlist textpattern link table nonbreaking paste searchreplace spellchecker charmap fullscreen',
+          plugins: 'link code lists advlist textpattern link table nonbreaking paste searchreplace spellchecker charmap fullscreen autosave',
           content_css: [
             'https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,400i,600i&display=swap',
             'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i|Fira+Sans:400,400i,500,500i|Nunito+Sans:400,400i,600,600i,700,700i&display=swap',
@@ -58,6 +58,7 @@ class App extends React.Component {
           
           toolbar: 'formatselect | paste cut copy | undo redo | searchreplace | bold italic strikethrough | numlist bullist | blockquote outdent indent | charmap table | zoomin zoomout code',
           menubar: false,
+          statusbar: false,
 
           nonbreaking_force_tab: true,
           advlist_number_styles: 'decimal,lower-alpha,lower-roman,upper-alpha',
@@ -103,6 +104,9 @@ class App extends React.Component {
           ],
 
           contextmenu: "bold italic | link table spellchecker",
+
+          autosave_restore_when_empty: true,
+          autosave_retention: "180m",
          
           min_height: 600,
           height: 700,
@@ -132,8 +136,24 @@ class App extends React.Component {
               return newZoom
             }
 
+            const increaseZoomAndCheckButtons = function (increment) {
+              return checkDisabledZooms(increaseZoom(increment))
+            }
+
             editor.on('init', function(e) {
               editor.execCommand('mceFullScreen')
+              const bodyElement = editor.dom.getRoot()
+              bodyElement.addEventListener('keydown', function (e) {
+                // Captura o Ctrl-+ e Ctrl-- (Zoom In e Zoom Out)
+                if (!e.ctrlKey)
+                  return
+                if (e.key === '+' || e.key === '-') {
+                  let increment = e.key === '+' ? 1 : -1
+                  increaseZoomAndCheckButtons(increment)    
+                  e.preventDefault()
+                  e.stopPropagation()
+                }  
+              })
             })
 
             editor.ui.registry.addButton('zoomin', {
@@ -142,8 +162,7 @@ class App extends React.Component {
               disabled: false,
               onSetup: btn => btnZoomIn = btn,
               onAction: btn => {
-                const newZoom = increaseZoom()
-                checkDisabledZooms(newZoom)
+                increaseZoomAndCheckButtons(1)
               },
             })
 
@@ -153,8 +172,7 @@ class App extends React.Component {
               disabled: false,
               onSetup: btn => btnZoomOut = btn,
               onAction: btn => {
-                const newZoom = increaseZoom(-1)
-                checkDisabledZooms(newZoom)
+                increaseZoomAndCheckButtons(-1)
               },
             })
 

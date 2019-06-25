@@ -107,35 +107,29 @@ class App extends React.Component {
           min_height: 600,
           height: 700,
 
-          setup: function(editor) {
+          setup: function (editor) {
 
-            const increaseBodyFontSize = function (increment = 1) {
-              const bodyElement = editor.dom.getRoot()
-              const fontSize = parseInt(editor.dom.getStyle(bodyElement, 'font-size', true))
+            const ZOOMS = [0, 0.5, 0.65, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 2],
+                minZoom = ZOOMS[1],
+                maxZoom = ZOOMS[ZOOMS.length-1]
+            let btnZoomIn,
+                btnZoomOut
 
-              if (increment < 1) {
-                if (fontSize < 13) return
-                increment = fontSize > 20 ? -2 : -1 
-              }
-              else {
-                if (fontSize > 40) return
-                increment = fontSize >= 20 ? 2 : 1
-              }
-              editor.dom.setStyle(bodyElement, 'font-size', `${parseInt(fontSize) + increment}px`)
+            const checkDisabledZooms = function (zoom) {
+              btnZoomIn.setDisabled(zoom >= maxZoom)  
+              btnZoomOut.setDisabled(zoom <= minZoom)
             }
 
             const increaseZoom = function (increment = 1) {
               const bodyElement = editor.dom.getRoot()
               const zoom = Number(editor.dom.getStyle(bodyElement, 'zoom', true))
-              const ZOOMS = [0, 0.5, 0.65, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 2, 0]
-              console.log(`zoom: ${zoom}`)
-              let zoomPosition = ZOOMS.indexOf(zoom)
-              console.log(`zoomPosition = ${zoomPosition}`)
-              let newZoom = ZOOMS[zoomPosition + increment]
+              const zoomPosition = ZOOMS.indexOf(zoom)
+              const newZoom = ZOOMS[zoomPosition + increment]
               if (!newZoom) {
-                return
+                return zoom
               }
               editor.dom.setStyle(bodyElement, 'zoom', newZoom)
+              return newZoom
             }
 
             editor.on('init', function(e) {
@@ -146,9 +140,10 @@ class App extends React.Component {
               icon: 'zoom-in',
               tooltip: 'Aumentar tamanho da letra',
               disabled: false,
-              onAction: function (_) {
-                //increaseBodyFontSize()    
-                increaseZoom()
+              onSetup: btn => btnZoomIn = btn,
+              onAction: btn => {
+                const newZoom = increaseZoom()
+                checkDisabledZooms(newZoom)
               },
             })
 
@@ -156,9 +151,10 @@ class App extends React.Component {
               icon: 'zoom-out',
               tooltip: 'Reduzir tamanho da letra',
               disabled: false,
-              onAction: function (_) {
-                //increaseBodyFontSize(-1)    
-                increaseZoom(-1)
+              onSetup: btn => btnZoomOut = btn,
+              onAction: btn => {
+                const newZoom = increaseZoom(-1)
+                checkDisabledZooms(newZoom)
               },
             })
 

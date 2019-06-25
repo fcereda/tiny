@@ -34,7 +34,8 @@ class App extends React.Component {
         init={{
           plugins: 'link code lists advlist textpattern link table nonbreaking paste searchreplace spellchecker charmap fullscreen autosave',
           content_css: [
-            'https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,400i,600i&display=swap',
+           'https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,400i,600i&display=swap',
+//            '/fonts/source-serif-pro/source-serif-pro.css',
             'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i|Fira+Sans:400,400i,500,500i|Nunito+Sans:400,400i,600,600i,700,700i&display=swap',
             'https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap',
             '/editor-content.css'

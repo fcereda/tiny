@@ -32,7 +32,7 @@ class App extends React.Component {
       <Editor
         initialValue='<p class="num"> </p>'
         init={{
-          plugins: 'link code lists advlist textpattern link table nonbreaking paste searchreplace spellchecker charmap',
+          plugins: 'link code lists advlist textpattern link table nonbreaking paste searchreplace spellchecker charmap fullscreen',
           content_css: [
             'https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,400i,600i&display=swap',
             'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i|Fira+Sans:400,400i,500,500i|Nunito+Sans:400,400i,600,600i,700,700i&display=swap',
@@ -56,7 +56,7 @@ class App extends React.Component {
 
           indentation : '2em',
           
-          toolbar: 'formatselect | paste cut copy | undo redo | searchreplace | bold italic strikethrough | numlist bullist | blockquote outdent indent | charmap table | code',
+          toolbar: 'formatselect | paste cut copy | undo redo | searchreplace | bold italic strikethrough | numlist bullist | blockquote outdent indent | charmap table | zoomin zoomout code',
           menubar: false,
 
           nonbreaking_force_tab: true,
@@ -106,6 +106,63 @@ class App extends React.Component {
          
           min_height: 600,
           height: 700,
+
+          setup: function(editor) {
+
+            const increaseBodyFontSize = function (increment = 1) {
+              const bodyElement = editor.dom.getRoot()
+              const fontSize = parseInt(editor.dom.getStyle(bodyElement, 'font-size', true))
+
+              if (increment < 1) {
+                if (fontSize < 13) return
+                increment = fontSize > 20 ? -2 : -1 
+              }
+              else {
+                if (fontSize > 40) return
+                increment = fontSize >= 20 ? 2 : 1
+              }
+              editor.dom.setStyle(bodyElement, 'font-size', `${parseInt(fontSize) + increment}px`)
+            }
+
+            const increaseZoom = function (increment = 1) {
+              const bodyElement = editor.dom.getRoot()
+              const zoom = Number(editor.dom.getStyle(bodyElement, 'zoom', true))
+              const ZOOMS = [0, 0.5, 0.65, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 2, 0]
+              console.log(`zoom: ${zoom}`)
+              let zoomPosition = ZOOMS.indexOf(zoom)
+              console.log(`zoomPosition = ${zoomPosition}`)
+              let newZoom = ZOOMS[zoomPosition + increment]
+              if (!newZoom) {
+                return
+              }
+              editor.dom.setStyle(bodyElement, 'zoom', newZoom)
+            }
+
+            editor.on('init', function(e) {
+              editor.execCommand('mceFullScreen')
+            })
+
+            editor.ui.registry.addButton('zoomin', {
+              icon: 'zoom-in',
+              tooltip: 'Aumentar tamanho da letra',
+              disabled: false,
+              onAction: function (_) {
+                //increaseBodyFontSize()    
+                increaseZoom()
+              },
+            })
+
+            editor.ui.registry.addButton('zoomout', {
+              icon: 'zoom-out',
+              tooltip: 'Reduzir tamanho da letra',
+              disabled: false,
+              onAction: function (_) {
+                //increaseBodyFontSize(-1)    
+                increaseZoom(-1)
+              },
+            })
+
+          },    
 
           init_instance_callback: function (editor) {
             editor.on('PreProcess', function (e) {

@@ -61,7 +61,7 @@ class App extends React.Component {
           statusbar: false,
 
           nonbreaking_force_tab: true,
-          advlist_number_styles: 'decimal,lower-alpha,lower-roman,upper-alpha',
+          advlist_number_styles: 'lower-alpha,decimal,upper-alpha',
           language_url : '/tinymce/langs/pt_BR.js',
           language: 'pt_BR',
           spellchecker_language: 'pt_BR',
@@ -101,8 +101,8 @@ class App extends React.Component {
             {start: '1) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'decimal' }},
             {start: 'a. ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-alpha' }},
             {start: 'a) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-alpha' }},
-            {start: 'i. ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-roman' }},
-            {start: 'i) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'lower-roman' }}
+            {start: 'A. ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'upper-alpha' }},
+            {start: 'A) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'upper-alpha' }},                        
           ],
 
           contextmenu: "bold italic | link table spellchecker",

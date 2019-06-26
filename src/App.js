@@ -1,4 +1,25 @@
 import React from 'react';
+
+/*
+import tinymce from 'tinymce/tinymce';
+// Theme:
+import 'tinymce/themes/silver';
+// Plugins:
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/code';
+import 'tinymce/plugins/lists';
+import 'tinymce/plugins/advlist';
+import 'tinymce/plugins/textpattern';
+import 'tinymce/plugins/table';
+import 'tinymce/plugins/nonbreaking';
+import 'tinymce/plugins/paste';
+import 'tinymce/plugins/searchreplace';
+import 'tinymce/plugins/spellchecker';
+import 'tinymce/plugins/charmap';
+import 'tinymce/plugins/fullscreen';
+*/
+
+// React wrapper
 import { Editor } from '@tinymce/tinymce-react';
 
 class App extends React.Component {
@@ -32,10 +53,9 @@ class App extends React.Component {
       <Editor
         initialValue='<p class="num"> </p>'
         init={{
-          plugins: 'link code lists advlist textpattern link table nonbreaking paste searchreplace spellchecker charmap fullscreen autosave',
+          plugins: 'link code lists advlist textpattern table nonbreaking paste searchreplace spellchecker charmap fullscreen',
           content_css: [
-           'https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,400i,600i&display=swap',
-//            '/fonts/source-serif-pro/source-serif-pro.css',
+            '/fonts/source-serif-pro/source-serif-pro.css',
             'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i|Fira+Sans:400,400i,500,500i|Nunito+Sans:400,400i,600,600i,700,700i&display=swap',
             'https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap',
             '/editor-content.css'

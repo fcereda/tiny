@@ -33,7 +33,7 @@ class App extends React.Component {
     const formats = {
       pc: { block: 'p', remove: 'all', exact: true},  
       pn: { block: 'p', classes: 'num', remove: 'all', exact: true },
-      tp: { block: 'p', classes: 'tp', remove: 'all', exact: true}, 
+      tp: { block: 'p', classes: 'tp', remove: 'all', exact: true, split: false}, 
       infotp: { block: 'p', classes: 'infotp', remove: 'all', exact: true},
       h1: { block: 'h1', exact: true },
       h2: { block: 'h2', exact: true },
@@ -45,11 +45,14 @@ class App extends React.Component {
       strikethrough: { inline: 'del', remove: 'all'}
     }
     const style_formats = [
-      { title: 'Normal', format: 'pc' },
+      { title: 'Talking points', format: 'tp'},
       { title: 'Numerado', format: 'pn' },
+      { title: 'Info em itálico', format: 'infotp'},
+      { title: 'Normal', format: 'pc' },      
       { title: 'Título 1', format: 'h1' },
       { title: 'Título 2', format: 'h2' },
-      { title: 'Título 3', format: 'h3' }
+      { title: 'Título 3', format: 'h3' },
+      { title: 'Assinatura', format: 'assinat'}
     ]
 
     return (
@@ -137,6 +140,28 @@ class App extends React.Component {
           min_height: 600,
           height: 700,
 
+
+          init_instance_callback: function (editor) {
+            editor.on('ExecCommand', function (e) {
+              if (e.command === 'mceToggleFormat') {
+                let appliedFormat = e.value
+                //console.log('appliedFormat = ' + appliedFormat)
+                let currentFormats = editor.formatter.matchAll(['pn', 'tp', 'infotp'])
+                //console.log(currentFormats)
+                currentFormats.forEach(thisFormat => {
+                  if (thisFormat !== appliedFormat) {
+                    //console.log('removendo formato ' + thisFormat)
+                    editor.formatter.toggle(thisFormat)
+                  }
+                })
+                editor.formatter.apply(appliedFormat)
+                //console.log('mceToggleFormat was executed')
+                //console.log(e)
+              }
+            });
+          },
+          
+
           setup: function (editor) {
 
             const ZOOMS = [0, 0.5, 0.65, 0.8, 0.9, 1, 1.05, 1.15, 1.25, 1.5, 2],
@@ -202,7 +227,58 @@ class App extends React.Component {
               },
             })
 
-          },    
+            // o addMenuButton abaixo é um teste que não deu muito certo  
+            const mybutton = editor.ui.registry.addMenuButton('mybutton', {
+              text: 'My button',
+              fetch: function (callback) {
+                var items = [
+                  {
+                    type: 'menuitem',
+                    text: 'Numerado',
+                    onAction: function () {
+                      //editor.formatter.apply('pn');
+                      editor.execCommand('FormatBlock', 'p', 'pn');
+                      mybutton.text = 'Numerado'
+                    }
+                  },
+                  {
+                    type: 'menuitem',
+                    text: 'Talking point',
+                    onAction: function () {
+                      editor.execCommand('FormatBlock', 'tp');
+                    }
+                  },
+                  {
+                    type: 'nestedmenuitem',
+                    text: 'Menu item 2',
+                    icon: 'user',
+                    getSubmenuItems: function () {
+                      return [
+                        {
+                          type: 'menuitem',
+                          text: 'Numerado',
+                          icon: 'unlock',
+                          onAction: function () {
+                            editor.insertContent('&nbsp;<em>You clicked Sub menu item 1!</em>');
+                          }
+                        },
+                        {
+                          type: 'menuitem',
+                          text: 'Sub menu item 2',
+                          icon: 'lock',
+                          onAction: function () {
+                            editor.insertContent('&nbsp;<em>You clicked Sub menu item 2!</em>');
+                          }
+                        }
+                      ];
+                    }
+                  }
+                ];
+                callback(items);
+              }
+            })
+
+          }    
 
         }}
         onChange={this.handleEditorChange}

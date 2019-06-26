@@ -1,0 +1,5 @@
+/* Backdrop das caixas de diálogo */
+
+.tox-dialog-wrap__backdrop {
+	background-color: rgba(255,255,255,0.25) !important;
+}

@@ -21,6 +21,7 @@ import 'tinymce/plugins/fullscreen';
 
 // React wrapper
 import { Editor } from '@tinymce/tinymce-react';
+import './tinymce-overrides.css';
 
 class App extends React.Component {
   handleEditorChange = (e) => {

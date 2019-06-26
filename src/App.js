@@ -31,11 +31,14 @@ class App extends React.Component {
   render() {
 
     const formats = {
-      pn: { block: 'p', classes: 'num', remove: 'all', exact: true },
       pc: { block: 'p', remove: 'all', exact: true},  
+      pn: { block: 'p', classes: 'num', remove: 'all', exact: true },
+      tp: { block: 'p', classes: 'tp', remove: 'all', exact: true}, 
+      infotp: { block: 'p', classes: 'infotp', remove: 'all', exact: true},
       h1: { block: 'h1', exact: true },
       h2: { block: 'h2', exact: true },
       h3: { block: 'h3', exact: true }, 
+      assinat: { block: 'h6', remove: 'all', exact: true },
       alignleft: { selector: 'td', classes: 'left' },
       aligncenter: { selector: 'td', classes: 'center' },
       alignright: { selector: 'td', classes: 'right' },
@@ -62,8 +65,7 @@ class App extends React.Component {
             '/editor-content.css'
           ],
           content_style: "body {font-family: 'Source Serif Pro', serif; font-size:18px; padding-left: calc(50% - 35ch); padding-right: calc(50% - 35ch);}",
-
-          block_formats: 'Numerado=pn; Normal=pc; Título 1=h1; Título 2=h2; Título 3=h3',
+          block_formats: 'Numerado=pn; Talking point=tp; Info em itálico=infotp; Normal=pc; Título 1=h1; Título 2=h2; Título 3=h3; Assinatura=assinat',
           font_formats: 'Arial=arial,helvetica,sans-serif; Courier New=courier new,monospace; Source Serif=Source Serif Pro',
           fontsize_formats: '11px 12px 14px 15px 16px 17px 18px 24px 36px 48px',
           formats: formats,
@@ -71,7 +73,7 @@ class App extends React.Component {
           preview_styles: 'font-family font-size font-weight',
           
           valid_elements: 'a[href|target=_blank],br,strong/b,u,em/i,del/strike,sub,sup,' + 
-            'blockquote,p[class|style],h1,h2,h3,h4,h5,h6,' + 
+            'blockquote,p[class|style],h1,h2,h3,h4,h5,h6,h7' + 
             'p[class]/div[class],' +   // Converte elementos <div> para <p>  
             'ol[style],ul[style],li[style],' + 
             'table[style|border|width|height|align|cellspacing|cellpadding],thead,tbody,tfoot,tr[style],td[style|class|width|height],th[style|class|width|height]',
@@ -93,7 +95,7 @@ class App extends React.Component {
           paste_retain_style_properties: '',
           paste_word_valid_elements: 'b,strong,i,em,u,sub,sup,strike,h1,h2,h3,p,table,tbody,thead,tfoot,tr,td,th,div,ol,ul,li,br,del',
           invalid_elements: 'pre',
-          valid_classes: 'num left center right',
+          valid_classes: 'num tp infotp assinat left center right',
           valid_styles: {
             'table':   'width, min-width',
             'td': 'width',

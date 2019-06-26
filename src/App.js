@@ -78,7 +78,7 @@ class App extends React.Component {
 
           indentation : '2em',
           
-          toolbar: 'formatselect | paste cut copy | undo redo | searchreplace | bold italic strikethrough | numlist bullist | blockquote outdent indent | charmap table | zoomin zoomout code',
+          toolbar: 'formatselect | paste cut copy | undo redo | searchreplace | bold italic | numlist bullist | blockquote outdent indent | charmap table | zoomout zoomin code',
           menubar: false,
           statusbar: false,
 
@@ -127,7 +127,7 @@ class App extends React.Component {
             {start: 'A) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'upper-alpha' }},                        
           ],
 
-          contextmenu: "bold italic | link table spellchecker",
+          contextmenu: "bold italic underline strikethrough superscript subscript | link table spellchecker",
 
           autosave_restore_when_empty: true,
           autosave_retention: "180m",

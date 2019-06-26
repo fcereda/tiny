@@ -143,10 +143,14 @@ class App extends React.Component {
 
           init_instance_callback: function (editor) {
             editor.on('ExecCommand', function (e) {
+              const blockFormats = ['pn', 'tp', 'infotp']
               if (e.command === 'mceToggleFormat') {
                 let appliedFormat = e.value
+                if (blockFormats.indexOf(appliedFormat) < 0) {
+                  return
+                }
                 //console.log('appliedFormat = ' + appliedFormat)
-                let currentFormats = editor.formatter.matchAll(['pn', 'tp', 'infotp'])
+                let currentFormats = editor.formatter.matchAll(blockFormats)
                 //console.log(currentFormats)
                 currentFormats.forEach(thisFormat => {
                   if (thisFormat !== appliedFormat) {

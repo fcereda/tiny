@@ -1,30 +1,12 @@
 import React from 'react';
 
-/*
-import tinymce from 'tinymce/tinymce';
-// Theme:
-import 'tinymce/themes/silver';
-// Plugins:
-import 'tinymce/plugins/link';
-import 'tinymce/plugins/code';
-import 'tinymce/plugins/lists';
-import 'tinymce/plugins/advlist';
-import 'tinymce/plugins/textpattern';
-import 'tinymce/plugins/table';
-import 'tinymce/plugins/nonbreaking';
-import 'tinymce/plugins/paste';
-import 'tinymce/plugins/searchreplace';
-import 'tinymce/plugins/spellchecker';
-import 'tinymce/plugins/charmap';
-import 'tinymce/plugins/fullscreen';
-*/
-
 // React wrapper
 import { Editor } from '@tinymce/tinymce-react';
 import './tinymce-overrides.css';
 
 class App extends React.Component {
   handleEditorChange = (e) => {
+    // Esta função foi herdada do boilerplate do tinymce-react
     //console.log('Content was updated:', e.target.getContent());
   }
 
@@ -65,6 +47,7 @@ class App extends React.Component {
             '/fonts/source-serif-pro/source-serif-pro.css',
             'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i|Fira+Sans:400,400i,500,500i|Nunito+Sans:400,400i,600,600i,700,700i&display=swap',
             'https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap',
+            'https://fonts.googleapis.com/css?family=Barlow&display=swap',
             '/editor-content.css'
           ],
           content_style: "body {font-family: 'Source Serif Pro', serif; font-size:18px; padding-left: calc(50% - 35ch); padding-right: calc(50% - 35ch);}",
@@ -120,6 +103,7 @@ class App extends React.Component {
             {start: '#', format: 'h1'},
             {start: '##', format: 'h2'},
             {start: '###', format: 'h3'},
+            {start: '>>', cmd: 'mceToggleFormat', value: 'tp'},
             {start: '* ', cmd: 'InsertUnorderedList'},
             {start: '- ', cmd: 'InsertUnorderedList'},
             {start: '1. ', format: 'pn'},
@@ -132,7 +116,7 @@ class App extends React.Component {
             {start: 'A) ', cmd: 'InsertOrderedList', value: { 'list-style-type': 'upper-alpha' }},                        
           ],
 
-          contextmenu: "bold italic underline strikethrough superscript subscript | link table spellchecker",
+          contextmenu: "copy cut paste | bold italic underline strikethrough | link table spellchecker",
 
           autosave_restore_when_empty: true,
           autosave_retention: "180m",
@@ -147,6 +131,7 @@ class App extends React.Component {
               if (e.command === 'mceToggleFormat') {
                 let appliedFormat = e.value
                 if (blockFormats.indexOf(appliedFormat) < 0) {
+                  // Retorna se o formato aplicado não for um dos que usam a tag <p> 
                   return
                 }
                 //console.log('appliedFormat = ' + appliedFormat)
@@ -167,7 +152,6 @@ class App extends React.Component {
           
 
           setup: function (editor) {
-
             const ZOOMS = [0, 0.5, 0.65, 0.8, 0.9, 1, 1.05, 1.15, 1.25, 1.5, 2],
                 minZoom = ZOOMS[1],
                 maxZoom = ZOOMS[ZOOMS.length-1]
@@ -191,9 +175,7 @@ class App extends React.Component {
               return newZoom
             }
 
-            const increaseZoomAndCheckButtons = function (increment) {
-              return checkDisabledZooms(increaseZoom(increment))
-            }
+            const increaseZoomAndCheckButtons = (increment) => checkDisabledZooms(increaseZoom(increment))
 
             editor.on('init', function(e) {
               editor.execCommand('mceFullScreen')
@@ -229,57 +211,6 @@ class App extends React.Component {
               onAction: btn => {
                 increaseZoomAndCheckButtons(-1)
               },
-            })
-
-            // o addMenuButton abaixo é um teste que não deu muito certo  
-            const mybutton = editor.ui.registry.addMenuButton('mybutton', {
-              text: 'My button',
-              fetch: function (callback) {
-                var items = [
-                  {
-                    type: 'menuitem',
-                    text: 'Numerado',
-                    onAction: function () {
-                      //editor.formatter.apply('pn');
-                      editor.execCommand('FormatBlock', 'p', 'pn');
-                      mybutton.text = 'Numerado'
-                    }
-                  },
-                  {
-                    type: 'menuitem',
-                    text: 'Talking point',
-                    onAction: function () {
-                      editor.execCommand('FormatBlock', 'tp');
-                    }
-                  },
-                  {
-                    type: 'nestedmenuitem',
-                    text: 'Menu item 2',
-                    icon: 'user',
-                    getSubmenuItems: function () {
-                      return [
-                        {
-                          type: 'menuitem',
-                          text: 'Numerado',
-                          icon: 'unlock',
-                          onAction: function () {
-                            editor.insertContent('&nbsp;<em>You clicked Sub menu item 1!</em>');
-                          }
-                        },
-                        {
-                          type: 'menuitem',
-                          text: 'Sub menu item 2',
-                          icon: 'lock',
-                          onAction: function () {
-                            editor.insertContent('&nbsp;<em>You clicked Sub menu item 2!</em>');
-                          }
-                        }
-                      ];
-                    }
-                  }
-                ];
-                callback(items);
-              }
             })
 
           }    
